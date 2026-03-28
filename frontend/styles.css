@@ -1,0 +1,177 @@
+
+.container {
+    max-width: 68.75rem;
+    margin:  0 auto;
+    padding: 2rem 1.25rem;
+}
+
+.container > h1{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.search {
+    --padding: 1rem;
+
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #a0d0db;
+    transition: background 0.25s;
+}
+
+.search-input {
+    font-size: 1rem;
+    font-family: 'Legend',sans-serif;
+    color: #333333;
+    /* margin-left: var(--padding); */
+    border: none;
+    outline: none;
+    background: transparent;
+    min-width: 0;
+
+}
+
+.search:focus-within{
+    background: #d7f2f4;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
+}
+
+.search-input::placeholder,
+.search-icon{
+    color: rgba(0, 0, 0, 0.5);
+    font-size:1.5rem;
+}
+
+.search-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.search-select {
+    height: 2.5rem;
+    padding: 0 0.9rem;
+    border: none;
+    border-radius: 0.9rem;
+    background: #fff;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.top-results-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.top-results-inline label {
+    font-size: 1rem;
+    /* font-weight: 600; */
+    font-family: 'Legend',sans-serif;
+    color: #222;
+    white-space: nowrap;
+}
+
+.small-select {
+    width: 4rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.tile-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.tile {
+    width: 100%;
+    flex:1;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    border-radius: 0.875rem;
+    transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+}
+
+.Articles {
+    margin-top: 1rem;
+}
+
+
+main {
+    max-width: 62.5rem;
+    margin: 0 auto;
+}
+
+main h1{
+    margin-bottom: 1.25rem;
+}
+
+
+select {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: none;
+    border-radius: 0.75rem;
+    outline: none;
+    background: white;
+    cursor: pointer;
+}
+
+
+.top-results {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem auto 2rem auto;
+    max-width: 43.75rem; 
+    font-size: 1rem;
+}
+
+.top-results label {
+    font-weight: 600;
+    color: #333;
+}
+
+.top-results select {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    box-shadow: 0 0.125rem 0.4rem rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    outline: none;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.top-results select:focus {
+    box-shadow: 0 0 0 0.15rem rgba(160, 208, 219, 0.6);
+}
+
+.top-results select:hover {
+    transform: translateY(-0.05rem);
+}
+
+
+

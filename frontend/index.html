@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Information Retrieval Engine</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
+
+    </head>
+
+    <body>
+
+        <div class="container">
+            <!-- <input id="searchbar" type="text"name="search"placeholder= "Find Articles"> -->
+            <h1>BBC News Article Retrieval</h1>
+            <form id="searchForm" action="/search_api" method="GET">
+                <div class="search">
+                    
+                    <span class="search-icon material-symbols-outlined">search</span>
+                    <input class="search-input" type="search" name="query" placeholder="Find Articles">
+                    <div class="search-controls">
+                    <select class="search-select" name="model">
+                        <option value="BM25">BM25</option>
+                        <option value="LanguageModel">Language Model</option>
+                    </select>
+
+                    <div class="top-results-inline">
+                        <label for="top-results-select">Top Results</label>
+                        <select id="top-results-select" class="search-select small-select" name="topN">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                
+            </form>
+
+            </div>
+                <div class="Articles">
+                <main>
+                    <h1> Results</h1>
+                    <div class="tile-container">
+                        <div class ="tile">
+                            <h2>no results yet</h2>
+                            <p>Enter a query to search for an Article</p>
+
+                        </div>
+                       
+                    </div>
+
+                </main>
+            </div>
+        </div>
+        
+
+        <script src="/script.js"></script>
+    </body>
+</html>

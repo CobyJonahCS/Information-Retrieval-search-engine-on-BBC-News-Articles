@@ -36,11 +36,11 @@ class BM25_PreProcess:
         init_corpus = [article.translate(str.maketrans('', '', string.punctuation)) for article in init_corpus]
         init_corpus = [re.sub(r'\W', ' ',article) for article in init_corpus]
 
-        init_corpus = [article.split(" ") for article in init_corpus] # tokenises corpus
-
+        init_corpus = [article.split() for article in init_corpus] # tokenises corpus
+        #for git -- > changed the split function as it added whitespace as tokens
         #all optional params here 
         if self.set_stopwords:
-            nltk.download('wordnet') # grabs stop words lists incase its needed
+            nltk.download('stopwords') # grabs stop words lists incase its needed
             stop_words_ref = set(stopwords.words('english'))
             init_corpus = [[word for word in article if word not in stop_words_ref] for article in init_corpus]
         if self.set_stemming: 
