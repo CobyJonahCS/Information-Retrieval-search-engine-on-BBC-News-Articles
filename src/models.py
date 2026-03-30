@@ -2,6 +2,7 @@
 import math
 import numpy as np # not used as of yet could probably help give a bit of a speed up but might not be important
 import pandas as pd # for our dataset
+import os
 
 class BM25:
 
@@ -25,7 +26,11 @@ class BM25:
         self.avgdl = ((1/self.N) * (sum(self.doc_lens)))
 
         self.bow_collection = set(word for doc in self.corpus for word in doc) #ibr i didnt even need this in the end, lowkey overthinked this 
-        self.df = pd.read_csv("../data/archive(5)/archive (2)/bbc-news-data.csv",sep="\t")# used for mainly output
+
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_path = os.path.join(base_dir, "..", "data", "archive-5", "archive (2)", "bbc-news-data.csv")
+        self.df= pd.read_csv(csv_path, sep="\t")
+        # self.df = pd.read_csv("../data/archive-5/archive (2)/bbc-news-data.csv",sep="\t")# used for mainly output
         
         #super slow though, could use some form of memoization to speed up ?
 
@@ -76,3 +81,38 @@ class BM25:
         return self.df.sort_values("scores",ascending=False)
 
 
+class UnigramLM:
+    def __init__(self, corpus, mu):
+        self.corpus = corpus
+        self.mu = mu
+        self.collection_len = sum(len(doc) for doc in corpus)
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_path = os.path.join(base_dir, "..", "data", "archive-5", "archive (2)", "bbc-news-data.csv")
+        self.df= pd.read_csv(csv_path, sep="\t")
+        # self.df = pd.read_csv("../data/archive-5/archive (2)/bbc-news-data.csv",sep="\t")
+
+    def _collection_prob(self, q_term):
+        freq = 0
+        for doc in self.corpus:
+            freq += doc.count(q_term)
+        return freq / self.collection_len
+
+    def _score(self, doc, query):
+        total_score = 0
+        for q_term in query:
+            term_freq = doc.count(q_term)
+            coll_prob = self._collection_prob(q_term)
+            smoothing_prob = (term_freq + self.mu * coll_prob) / (len(doc) + self.mu)
+
+            if smoothing_prob > 0:
+                total_score += math.log(smoothing_prob )
+
+        return total_score
+
+    def rank(self,query):
+        scores = []
+
+        for article in self.corpus:
+            scores.append(self._score(doc=article,query=query))
+        self.df['scores'] = scores
+        return self.df.sort_values("scores",ascending=False)
