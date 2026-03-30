@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request,send_from_directory,jsonify
-
+import os
 import sys
 sys.path.append('../')
 
@@ -7,10 +7,16 @@ from src.PreProcessingPipeline import BM25_PreProcess
 
 import pandas as pd
 from src.models import BM25
+from src.models import UnigramLM
 
 #loading our articles hdataset here
 
-df = pd.read_csv("../data/archive(5)/archive (2)/bbc-news-data.csv",sep="\t")
+# add logic to work on different OS's
+base_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(base_dir, "..", "data", "archive-5", "archive (2)", "bbc-news-data.csv")
+df= pd.read_csv(csv_path, sep="\t")
+
+# df = pd.read_csv("../data/archive-5/archive (2)/bbc-news-data.csv",sep="\t")
 
 df['document'] = df['title'] + " " + df ['content']
 
@@ -69,8 +75,23 @@ def search():
         #needs fixing
 
     if model == "LanguageModel":
-        # fill in once complete
-        pass
+        query_prepro = BM25_PreProcess(corpus=[query],set_stemming=True,set_lemmatization=False,set_stopwords=True)
+        preprocessed_query = query_prepro.get_corpus()[0]
+
+        uniLM = UnigramLM(corpus=processed_corpus, mu= 2000)
+        results = uniLM.rank(preprocessed_query) 
+        results_out = results.copy().head(topN)
+        
+        # page_resp = (results_out[['title','content']].to_dict(orient="records"))
+        page_resp = (
+        results_out[['title', 'content']]
+        .rename(columns={"content": "description"})
+        .to_dict(orient="records")
+                    )
+        #issues --> we need a json output ofc but the redirect is getting in the way
+
+        print(results_out)
+        return jsonify(page_resp)
 
     return jsonify([])
 
