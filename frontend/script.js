@@ -54,9 +54,14 @@ class SearchForm {
             const query = document.querySelector('input[name="query"]').value;
             const model = document.querySelector('select[name="model"]').value;
             const topN = document.querySelector('select[name="topN"]').value;
+
+            document.getElementById("loading").style.display = "block";
+
             fetch(`/search_api?query=${encodeURIComponent(query)}&model=${encodeURIComponent(model)}&topN=${encodeURIComponent(topN)}`).then(response => response.json()).then(data => {
-            console.log(data); // just for debutging purposes 
-            displayTiles(data); // update site with relevant articles
+                console.log(data); // just for debutging purposes 
+                document.getElementById("loading").style.display = "none";
+
+                displayTiles(data); // update site with relevant articles
         })
         // simple fecth to out API 
 
