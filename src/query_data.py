@@ -3,7 +3,7 @@ from pathlib import Path
 from src.PreProcessingPipeline import BM25_PreProcess
 
 ROOT = Path(__file__).resolve().parent.parent
-CORPUS_PATH = ROOT / "data" / "archive(5)" / "archive (2)" / "bbc-news-data.csv"
+CORPUS_PATH = ROOT / "data" / "archive-5" / "archive (2)" / "bbc-news-data.csv"
 
 
 corpus_df = pd.read_csv(CORPUS_PATH, sep="\t")
