@@ -1,1 +1,5 @@
 *.csv
+!data/archive-5/
+!data/archive-5/archive (2)/
+!data/archive-5/*.csv
+!data/archive-5/archive (2)/*.csv
