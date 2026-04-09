@@ -84,7 +84,9 @@ class BM25:
 class UnigramLM:
     def __init__(self, corpus, mu):
         self.corpus = corpus
+        # dirichlet smoothing parameter
         self.mu = mu
+        # load dataframe
         self.collection_len = sum(len(doc) for doc in corpus)
         base_dir = os.path.dirname(os.path.abspath(__file__))
         csv_path = os.path.join(base_dir, "..", "data", "archive-5", "archive (2)", "bbc-news-data.csv")
@@ -92,6 +94,8 @@ class UnigramLM:
         # self.df = pd.read_csv("../data/archive-5/archive (2)/bbc-news-data.csv",sep="\t")
 
     def _collection_prob(self, q_term):
+        # compute collection probability 
+        # frequency of term in the entire corpus / total tokens
         freq = 0
         for doc in self.corpus:
             freq += doc.count(q_term)
@@ -100,10 +104,14 @@ class UnigramLM:
     def _score(self, doc, query):
         total_score = 0
         for q_term in query:
+            # term frequency in current document 
             term_freq = doc.count(q_term)
+            # collection probability of term 
             coll_prob = self._collection_prob(q_term)
+            # dirichlet smoothing formula
             smoothing_prob = (term_freq + self.mu * coll_prob) / (len(doc) + self.mu)
 
+            # uses log to avoid underflow
             if smoothing_prob > 0:
                 total_score += math.log(smoothing_prob )
 
@@ -113,6 +121,8 @@ class UnigramLM:
         scores = []
 
         for article in self.corpus:
+            # computes scores for each doc
             scores.append(self._score(doc=article,query=query))
         self.df['scores'] = scores
+        # sorts documents in descending order
         return self.df.sort_values("scores",ascending=False)
