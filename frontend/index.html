@@ -11,21 +11,25 @@
     </head>
 
     <body>
-
+        <!-- main container for UI -->
         <div class="container">
             <!-- <input id="searchbar" type="text"name="search"placeholder= "Find Articles"> -->
             <h1>BBC News Article Retrieval</h1>
+            <!-- search form -->
             <form id="searchForm" action="/search_api" method="GET">
                 <div class="search">
-                    
+                    <!-- search icon -->
                     <span class="search-icon material-symbols-outlined">search</span>
+                    <!-- user query input -->
                     <input class="search-input" type="search" name="query" placeholder="Find Articles">
                     <div class="search-controls">
+                    <!-- model selection -->
                     <select class="search-select" name="model">
                         <option value="BM25">BM25</option>
                         <option value="LanguageModel">Language Model</option>
                     </select>
 
+                    <!-- number of results selector -->
                     <div class="top-results-inline">
                         <label for="top-results-select">Top Results</label>
                         <select id="top-results-select" class="search-select small-select" name="topN">
@@ -36,6 +40,7 @@
                         </select>
                     </div>
                 </div>
+                <!-- loading spinner for when user enters a query -->
                 <div id="loading" class="loading">
                     <div class="spinner"></div>
                 </div>
@@ -47,8 +52,10 @@
                 <div class="Articles">
                 <main>
                     <h1> Results</h1>
+                    <!-- container for search results -->
                     <div class="tile-container">
                         <div class ="tile">
+                            <!-- default state before search -->
                             <h2>no results yet</h2>
                             <p>Enter a query to search for an Article</p>
 

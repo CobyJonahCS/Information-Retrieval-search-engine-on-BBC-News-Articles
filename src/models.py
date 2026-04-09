@@ -31,14 +31,10 @@ class BM25:
         csv_path = os.path.join(base_dir, "..", "data", "archive-5", "archive (2)", "bbc-news-data.csv")
         self.df= pd.read_csv(csv_path, sep="\t")
         # self.df = pd.read_csv("../data/archive-5/archive (2)/bbc-news-data.csv",sep="\t")# used for mainly output
-        
-        #super slow though, could use some form of memoization to speed up ?
-
-        #add a cache to track the IDF score per each term  probably help with the run time a tad
 
     def _IDF(self,term):
         #computes the ID on a per term basis 
-
+        # counts documents containing the term
         nt = 0 
         for article in self.corpus:
             if term in article:
