@@ -58,7 +58,7 @@ def search():
         preprocessed_query = query_prepro.get_corpus()[0]
 
         
-        bm25 = BM25(corpus=processed_corpus, k1=1.5, b=0.75) # still yet to tune 
+        bm25 = BM25(corpus=processed_corpus, k1=1.5, b=1.0) # still yet to tune 
         results = bm25.rank(preprocessed_query) #
         results_out = results.copy().head(topN)
         
@@ -78,7 +78,7 @@ def search():
         query_prepro = BM25_PreProcess(corpus=[query],set_stemming=True,set_lemmatization=False,set_stopwords=True)
         preprocessed_query = query_prepro.get_corpus()[0]
 
-        uniLM = UnigramLM(corpus=processed_corpus, mu= 2000)
+        uniLM = UnigramLM(corpus=processed_corpus, mu= 500)
         results = uniLM.rank(preprocessed_query) 
         results_out = results.copy().head(topN)
         
