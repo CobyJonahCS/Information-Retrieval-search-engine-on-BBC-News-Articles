@@ -1,11 +1,14 @@
+# This file is responsible for loading the dataset, preprocessing the corpus and queries, and preparing them for evaluation.
+# import libraries and modules
 import pandas as pd
 from pathlib import Path
 from src.PreProcessingPipeline import BM25_PreProcess
 
+# Define the path to the dataset
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS_PATH = ROOT / "data" / "archive-5" / "archive (2)" / "bbc-news-data.csv"
 
-
+# Load the dataset and preprocess the corpus
 corpus_df = pd.read_csv(CORPUS_PATH, sep="\t")
 
 print("Columns:", corpus_df.columns.tolist())
@@ -31,6 +34,7 @@ processed_corpus = BM25_PreProcess(
     set_stopwords=True
 ).get_corpus()
 
+# Define the set of queries for evaluation
 query = pd.DataFrame([
     {"query": "stock market interest rates", "category": "business"},
     {"query": "company profits economic growth", "category": "business"},
@@ -63,6 +67,7 @@ query = pd.DataFrame([
     {"query": "technology company new device", "category": "tech"},
 ])
 
+# Preprocess the set of queries above using the same pipeline as the corpus
 query_prepro = BM25_PreProcess(
     corpus=query["query"].tolist(),
     set_stemming=True,
